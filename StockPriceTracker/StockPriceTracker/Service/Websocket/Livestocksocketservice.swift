@@ -92,7 +92,9 @@ public final class LiveStockSocketService: NSObject, StockSocketService {
   private func handle(message: URLSessionWebSocketTask.Message) {
     switch message {
       case .string(let text):
-        DispatchQueue.main.async { self.listener?.socketDidReceiveMessage(text) }
+        DispatchQueue.main.async {
+          self.listener?.socketDidReceiveMessage(text)
+        }
       case .data(let data):
         guard let text = String(data: data, encoding: .utf8) else {
           DispatchQueue.main.async {
@@ -102,7 +104,9 @@ public final class LiveStockSocketService: NSObject, StockSocketService {
           }
           return
         }
-        DispatchQueue.main.async { self.listener?.socketDidReceiveMessage(text) }
+        DispatchQueue.main.async {
+          self.listener?.socketDidReceiveMessage(text)
+        }
       @unknown default:
         break
     }
