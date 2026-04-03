@@ -28,7 +28,7 @@ struct PriceHeroCard: View {
     }
     .background(cardBackground)
     .onChange(of: symbol?.currentPrice) { old, new in
-      guard let old, let new, old != 0 else { return }
+      guard let old, old != 0 else { return }
       withAnimation(.spring(response: 0.15, dampingFraction: 0.5)) {
         flashScale = 1.04
       }
