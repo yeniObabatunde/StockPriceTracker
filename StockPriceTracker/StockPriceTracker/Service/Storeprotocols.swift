@@ -14,6 +14,8 @@ public protocol StockPriceStoring: AnyObject {
   @MainActor func applyUpdate(_ update: PriceUpdate)
   @MainActor func setConnectionState(_ state: ConnectionState)
   func symbol(for ticker: String) -> StockSymbol?
+  func applyBatchUpdate(_ updates: [PriceUpdate])
+  func priceHistory(for ticker: String) -> [Double]
 }
 
 public protocol PriceFeedManaging: AnyObject {

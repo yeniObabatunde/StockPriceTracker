@@ -46,5 +46,10 @@ final class MockStockPriceStore: StockPriceStoring {
   func symbol(for ticker: String) -> StockSymbol? {
     symbols.first { $0.ticker == ticker }
   }
+
+  func applyBatchUpdate(_ updates: [PriceUpdate]) { }
+  func priceHistory(for ticker: String) -> [Double] {
+    []
+  }
 }
 #endif

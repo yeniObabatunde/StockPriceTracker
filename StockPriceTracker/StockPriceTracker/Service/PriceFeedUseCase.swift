@@ -12,8 +12,8 @@ public final class PriceFeedUseCase: PriceFeedManaging {
     private let socket: StockSocketService
     private let store: StockPriceStoring
     private let tickerPool: [String]
-    private let priceRange: ClosedRange<Double>
     private let updateInterval: TimeInterval
+    private var lastPrices: [String: Double] = [:]
 
     private var updateTimer: Timer?
 
@@ -28,18 +28,27 @@ public final class PriceFeedUseCase: PriceFeedManaging {
         return e
     }()
 
+    private let seedPrices: [String: Double] = [
+        "AAPL": 189.00, "GOOG": 175.00, "TSLA": 175.00, "AMZN": 185.00,
+        "MSFT": 415.00, "NVDA": 875.00, "META": 505.00, "NFLX": 630.00,
+        "BRKB": 415.00, "JPM":  200.00, "V":    275.00, "UNH":  495.00,
+        "JNJ":  155.00, "WMT":  175.00, "MA":   475.00, "PG":   165.00,
+        "HD":   375.00, "DIS":   95.00, "PYPL":  65.00, "ADBE": 475.00,
+        "CRM":  300.00, "INTC":  30.00, "AMD":  165.00, "QCOM": 165.00,
+        "SPOT": 355.00
+    ]
+
     public init(
         socket: StockSocketService,
         store: StockPriceStoring,
         tickerPool: [String] = StockSymbolSeed.all.map(\.ticker),
-        priceRange: ClosedRange<Double> = 50...3500,
-        updateInterval: TimeInterval = 1.5
+        updateInterval: TimeInterval = 4.5
     ) {
         self.socket = socket
         self.store = store
         self.tickerPool = tickerPool
-        self.priceRange = priceRange
         self.updateInterval = updateInterval
+        self.lastPrices = seedPrices
         self.socket.listener = self
     }
 
@@ -54,23 +63,24 @@ public final class PriceFeedUseCase: PriceFeedManaging {
     }
 
     private func startSendingUpdates() {
-        sendRandomPriceUpdate()
+        sendBatchPriceUpdate()
         updateTimer = Timer.scheduledTimer(
             withTimeInterval: updateInterval,
             repeats: true
         ) { [weak self] _ in
-            self?.sendRandomPriceUpdate()
+            self?.sendBatchPriceUpdate()
         }
     }
 
-    private func sendRandomPriceUpdate() {
-        guard let ticker = tickerPool.randomElement() else { return }
-        let update = PriceUpdate(
-            ticker: ticker,
-            price: Double.random(in: priceRange),
-            timestamp: .now
-        )
-        guard let data = try? encoder.encode(update),
+    private func sendBatchPriceUpdate() {
+        let updates = tickerPool.map { ticker -> PriceUpdate in
+            let last = lastPrices[ticker] ?? seedPrices[ticker] ?? 100.0
+            let next = nextPrice(from: last)
+            lastPrices[ticker] = next
+            return PriceUpdate(ticker: ticker, price: next, timestamp: .now)
+        }
+
+        guard let data = try? encoder.encode(updates),
               let json = String(data: data, encoding: .utf8) else { return }
 
         Task {
@@ -78,9 +88,16 @@ public final class PriceFeedUseCase: PriceFeedManaging {
         }
     }
 
-    func parse(message: String) -> PriceUpdate? {
+    private func nextPrice(from last: Double) -> Double {
+        let maxMovePercent = 0.02
+        let change = Double.random(in: -maxMovePercent...maxMovePercent)
+        let next = last * (1 + change)
+        return (next * 100).rounded() / 100
+    }
+
+    func parse(message: String) -> [PriceUpdate]? {
         guard let data = message.data(using: .utf8) else { return nil }
-        return try? decoder.decode(PriceUpdate.self, from: data)
+        return try? decoder.decode([PriceUpdate].self, from: data)
     }
 }
 
@@ -98,14 +115,13 @@ extension PriceFeedUseCase: SocketEventListening {
     }
 
   public func socketDidReceiveMessage(_ message: String) {
-      guard let update = parse(message: message) else {
-          return
-      }
-      store.applyUpdate(update)
+    guard let updates = parse(message: message) else {
+      return
+    }
+    store.applyBatchUpdate(updates)
   }
 
     public func socketDidEncounterError(_ error: SocketError) {
         store.setConnectionState(.disconnected)
     }
-  
 }
