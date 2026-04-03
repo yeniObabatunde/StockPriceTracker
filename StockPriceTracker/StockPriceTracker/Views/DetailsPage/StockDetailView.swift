@@ -17,6 +17,7 @@ struct StockDetailView: View {
   @State private var headerVisible = false
   @State private var statsVisible = false
   @State private var chartVisible = false
+  @State private var isWaitingForFirstPrice = true
 
   private let maxHistoryPoints = 40
 
@@ -38,16 +39,22 @@ struct StockDetailView: View {
       guard !appearedOnce else { return }
       appearedOnce = true
       animateIn()
-      if let price = viewModel.symbol?.currentPrice, price > 0 {
-        priceHistory = [price]
-      }
+      seedInitialPriceIfAvailable()
     }
     .onChange(of: viewModel.symbol?.currentPrice) { _, newPrice in
       guard let newPrice, newPrice > 0 else { return }
+      isWaitingForFirstPrice = false
       priceHistory.append(newPrice)
       if priceHistory.count > maxHistoryPoints {
         priceHistory.removeFirst()
       }
+    }
+  }
+
+  private func seedInitialPriceIfAvailable() {
+    if let price = viewModel.symbol?.currentPrice, price > 0 {
+      priceHistory = [price]
+      isWaitingForFirstPrice = false
     }
   }
 
@@ -85,8 +92,16 @@ struct StockDetailView: View {
 
   @ViewBuilder
   private var sparklineChart: some View {
-    if !priceHistory.isEmpty {
+    if isWaitingForFirstPrice {
+      SparklineLoadingPlaceholder()
+        .opacity(chartVisible ? 1 : 0)
+        .offset(y: chartVisible ? 0 : 20)
+    } else if priceHistory.count >= 2 {
       SparklineCard(history: priceHistory)
+        .opacity(chartVisible ? 1 : 0)
+        .offset(y: chartVisible ? 0 : 20)
+    } else {
+      SparklineWaitingView()
         .opacity(chartVisible ? 1 : 0)
         .offset(y: chartVisible ? 0 : 20)
     }
