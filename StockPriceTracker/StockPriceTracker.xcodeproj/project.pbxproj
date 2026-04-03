@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		581D87DD2F7F655700B168D2 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 581D87DC2F7F655700B168D2 /* InlineSnapshotTesting */; };
+		581D87DF2F7F655700B168D2 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 581D87DE2F7F655700B168D2 /* SnapshotTesting */; };
+		581D87E12F7F655700B168D2 /* SnapshotTestingCustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 581D87E02F7F655700B168D2 /* SnapshotTestingCustomDump */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		589150832F7D3D7A0029B073 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -14,7 +20,7 @@
 			remoteGlobalIDString = 589150742F7D3D780029B073;
 			remoteInfo = StockPriceTracker;
 		};
-		5891508D2F7D3D7A0029B073 /* PBXContainerItemProxy */ = {
+		5891518A2F7F5CD50029B073 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5891506D2F7D3D780029B073 /* Project object */;
 			proxyType = 1;
@@ -26,7 +32,7 @@
 /* Begin PBXFileReference section */
 		589150752F7D3D780029B073 /* StockPriceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589150822F7D3D7A0029B073 /* StockPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5891508C2F7D3D7A0029B073 /* StockPriceTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		589151842F7F5CD40029B073 /* StockPriceTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -54,10 +60,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581D87E12F7F655700B168D2 /* SnapshotTestingCustomDump in Frameworks */,
+				581D87DD2F7F655700B168D2 /* InlineSnapshotTesting in Frameworks */,
+				581D87DF2F7F655700B168D2 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		589150892F7D3D7A0029B073 /* Frameworks */ = {
+		589151812F7F5CD40029B073 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,6 +81,7 @@
 			children = (
 				589150772F7D3D780029B073 /* StockPriceTracker */,
 				589150852F7D3D7A0029B073 /* StockPriceTrackerTests */,
+				589151942F7F5EA80029B073 /* Frameworks */,
 				589150762F7D3D780029B073 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,9 +91,16 @@
 			children = (
 				589150752F7D3D780029B073 /* StockPriceTracker.app */,
 				589150822F7D3D7A0029B073 /* StockPriceTrackerTests.xctest */,
-				5891508C2F7D3D7A0029B073 /* StockPriceTrackerUITests.xctest */,
+				589151842F7F5CD40029B073 /* StockPriceTrackerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		589151942F7F5EA80029B073 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,29 +146,32 @@
 			);
 			name = StockPriceTrackerTests;
 			packageProductDependencies = (
+				581D87DC2F7F655700B168D2 /* InlineSnapshotTesting */,
+				581D87DE2F7F655700B168D2 /* SnapshotTesting */,
+				581D87E02F7F655700B168D2 /* SnapshotTestingCustomDump */,
 			);
 			productName = StockPriceTrackerTests;
 			productReference = 589150822F7D3D7A0029B073 /* StockPriceTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5891508B2F7D3D7A0029B073 /* StockPriceTrackerUITests */ = {
+		589151832F7F5CD40029B073 /* StockPriceTrackerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5891509C2F7D3D7A0029B073 /* Build configuration list for PBXNativeTarget "StockPriceTrackerUITests" */;
+			buildConfigurationList = 5891518C2F7F5CD50029B073 /* Build configuration list for PBXNativeTarget "StockPriceTrackerUITests" */;
 			buildPhases = (
-				589150882F7D3D7A0029B073 /* Sources */,
-				589150892F7D3D7A0029B073 /* Frameworks */,
-				5891508A2F7D3D7A0029B073 /* Resources */,
+				589151802F7F5CD40029B073 /* Sources */,
+				589151812F7F5CD40029B073 /* Frameworks */,
+				589151822F7F5CD40029B073 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5891508E2F7D3D7A0029B073 /* PBXTargetDependency */,
+				5891518B2F7F5CD50029B073 /* PBXTargetDependency */,
 			);
 			name = StockPriceTrackerUITests;
 			packageProductDependencies = (
 			);
-			productName = StockPriceTrackerUITests;
-			productReference = 5891508C2F7D3D7A0029B073 /* StockPriceTrackerUITests.xctest */;
+			productName = StockPriceTrackerUITestsFolder;
+			productReference = 589151842F7F5CD40029B073 /* StockPriceTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +191,7 @@
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = 589150742F7D3D780029B073;
 					};
-					5891508B2F7D3D7A0029B073 = {
+					589151832F7F5CD40029B073 = {
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = 589150742F7D3D780029B073;
 					};
@@ -186,6 +206,9 @@
 			);
 			mainGroup = 5891506C2F7D3D780029B073;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				581D87DB2F7F655700B168D2 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 589150762F7D3D780029B073 /* Products */;
 			projectDirPath = "";
@@ -193,7 +216,7 @@
 			targets = (
 				589150742F7D3D780029B073 /* StockPriceTracker */,
 				589150812F7D3D7A0029B073 /* StockPriceTrackerTests */,
-				5891508B2F7D3D7A0029B073 /* StockPriceTrackerUITests */,
+				589151832F7F5CD40029B073 /* StockPriceTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,7 +236,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5891508A2F7D3D7A0029B073 /* Resources */ = {
+		589151822F7F5CD40029B073 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,7 +260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		589150882F7D3D7A0029B073 /* Sources */ = {
+		589151802F7F5CD40029B073 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,10 +275,10 @@
 			target = 589150742F7D3D780029B073 /* StockPriceTracker */;
 			targetProxy = 589150832F7D3D7A0029B073 /* PBXContainerItemProxy */;
 		};
-		5891508E2F7D3D7A0029B073 /* PBXTargetDependency */ = {
+		5891518B2F7F5CD50029B073 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 589150742F7D3D780029B073 /* StockPriceTracker */;
-			targetProxy = 5891508D2F7D3D7A0029B073 /* PBXContainerItemProxy */;
+			targetProxy = 5891518A2F7F5CD50029B073 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -475,7 +498,7 @@
 			};
 			name = Release;
 		};
-		5891509D2F7D3D7A0029B073 /* Debug */ = {
+		5891518D2F7F5CD50029B073 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -483,7 +506,7 @@
 				DEVELOPMENT_TEAM = 8JM7VY488D;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Items.StockPriceTrackerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Items.StockPriceTrackerUITestsFolder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -492,7 +515,7 @@
 			};
 			name = Debug;
 		};
-		5891509E2F7D3D7A0029B073 /* Release */ = {
+		5891518E2F7F5CD50029B073 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -500,7 +523,7 @@
 				DEVELOPMENT_TEAM = 8JM7VY488D;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Items.StockPriceTrackerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Items.StockPriceTrackerUITestsFolder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -539,16 +562,45 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5891509C2F7D3D7A0029B073 /* Build configuration list for PBXNativeTarget "StockPriceTrackerUITests" */ = {
+		5891518C2F7F5CD50029B073 /* Build configuration list for PBXNativeTarget "StockPriceTrackerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5891509D2F7D3D7A0029B073 /* Debug */,
-				5891509E2F7D3D7A0029B073 /* Release */,
+				5891518D2F7F5CD50029B073 /* Debug */,
+				5891518E2F7F5CD50029B073 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		581D87DB2F7F655700B168D2 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		581D87DC2F7F655700B168D2 /* InlineSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 581D87DB2F7F655700B168D2 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = InlineSnapshotTesting;
+		};
+		581D87DE2F7F655700B168D2 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 581D87DB2F7F655700B168D2 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		581D87E02F7F655700B168D2 /* SnapshotTestingCustomDump */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 581D87DB2F7F655700B168D2 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTestingCustomDump;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5891506D2F7D3D780029B073 /* Project object */;
 }
