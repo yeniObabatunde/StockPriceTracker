@@ -52,7 +52,7 @@ public final class StockPriceStore: StockPriceStoring {
       priceHistories[ticker] ?? []
   }
 
-    public func symbol(for ticker: String) -> StockSymbol? {
-        symbols.first { $0.ticker == ticker }
-    }
+  public func symbol(for ticker: String) -> StockSymbol? {
+    symbols.first { $0.ticker == ticker }
+  }
 }
