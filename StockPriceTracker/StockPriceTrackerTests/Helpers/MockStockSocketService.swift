@@ -21,26 +21,36 @@ final class MockStockSocketService: StockSocketService {
   func connect() {
     connectCallCount += 1
     stubbedConnectionState = .connected
-    listener?.socketDidConnect()
+    Task { @MainActor [weak self] in
+      self?.listener?.socketDidConnect()
+    }
   }
 
   func disconnect() {
     disconnectCallCount += 1
     stubbedConnectionState = .disconnected
-    listener?.socketDidDisconnect(reason: nil)
+    Task { @MainActor [weak self] in
+      self?.listener?.socketDidDisconnect(reason: nil)
+    }
   }
 
   func send(_ message: String) async throws {
     if sendShouldThrow { throw SocketError.connectionFailed("Mock send error") }
     sentMessages.append(message)
-    listener?.socketDidReceiveMessage(message)
+    await MainActor.run { [weak self] in
+      self?.listener?.socketDidReceiveMessage(message)
+    }
   }
 
   func simulateError(_ error: SocketError) {
-    listener?.socketDidEncounterError(error)
+    Task { @MainActor [weak self] in
+      self?.listener?.socketDidEncounterError(error)
+    }
   }
 
   func simulateInboundMessage(_ message: String) {
-    listener?.socketDidReceiveMessage(message)
+    Task { @MainActor [weak self] in
+      self?.listener?.socketDidReceiveMessage(message)
+    }
   }
 }

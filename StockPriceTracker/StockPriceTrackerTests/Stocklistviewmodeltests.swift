@@ -8,6 +8,7 @@
 @testable import StockPriceTracker
 import XCTest
 
+@MainActor
 final class StockListViewModelTests: XCTestCase {
   
   private var sut: StockListViewModel!
